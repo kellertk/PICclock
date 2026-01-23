@@ -92,7 +92,7 @@ static void nco_init(void) {
     NCO1ACCL = 0x00;
     
     // Enable NCO in Fixed Duty Cycle (FDC) mode - 50% duty cycle output
-    NCO1CON = 0x80;             // N1EN=1, N1PFM=0 (FDC mode), N1POL=0
+    NCO1CON = 0x90;             // N1EN=1, N1PFM=0 (FDC mode), N1POL=1
 }
 
 /**
@@ -106,7 +106,7 @@ static void nco_set_increment(uint32_t inc) {
     NCO1INCH = (uint8_t)((inc >> 8) & 0xFF);
     NCO1INCU = (uint8_t)((inc >> 16) & 0x0F);  // Only 4 bits in upper
     
-    NCO1CON = 0x80;  // Enable NCO, FDC mode
+    NCO1CON = 0x90;  // Enable NCO, FDC mode, inverted
 }
 
 /**
@@ -114,7 +114,7 @@ static void nco_set_increment(uint32_t inc) {
  */
 static void nco_stop(void) {
     NCO1CON = 0x00;
-    LATBbits.LATB6 = 0;         // Ensure output is low
+    LATBbits.LATB6 = 1;         // Ensure output is high
 }
 
 /**
@@ -124,7 +124,7 @@ static void nco_stop(void) {
 static void nco_disconnect(void) {
     NCO1CON = 0x00;
     RB6PPS = 0x00;              // Disconnect NCO from RB6, use LATB6
-    LATBbits.LATB6 = 0;
+    LATBbits.LATB6 = 1;
 }
 
 /**
@@ -132,16 +132,16 @@ static void nco_disconnect(void) {
  */
 static void nco_connect(void) {
     RB6PPS = 0x1D;              // Route NCO1 to RB6
-    NCO1CON = 0x80;             // Enable NCO, FDC mode
+    NCO1CON = 0x90;             // Enable NCO, FDC mode, inverted
 }
 
 /**
  * Output a single step pulse (for step mode)
  */
 static void output_step_pulse(void) {
-    LATBbits.LATB6 = 1;
-    __delay_ms(10);
     LATBbits.LATB6 = 0;
+    __delay_ms(10);
+    LATBbits.LATB6 = 1;
 }
 
 /**
@@ -217,7 +217,7 @@ void main(void) {
         if (mode & 2) {
             if (!halted) {
                 if (software_mode) {
-                    LATBbits.LATB6 = 0;
+                    LATBbits.LATB6 = 1;
                 } else {
                     nco_stop();
                 }
@@ -235,7 +235,7 @@ void main(void) {
                 if (!software_mode) {
                     nco_disconnect();
                 }
-                LATBbits.LATB6 = 0;
+                LATBbits.LATB6 = 1;
                 running = 0;
                 halted = 1;
             }
@@ -272,8 +272,8 @@ void main(void) {
         
         // Software mode: generate clock with delays
         if (software_mode) {
-            // High phase
-            LATBbits.LATB6 = 1;
+            // Low phase
+            LATBbits.LATB6 = 0;
             
             // Delay for half period (use 10us chunks for long delays)
             // At 24 MHz, 10us = 240 cycles
@@ -286,14 +286,14 @@ void main(void) {
                 if ((i & 0x3FF) == 0) {
                     uint8_t m = (HALT_SEL ? 0 : 2) | (STEP_SEL ? 0 : 1);
                     if (m != 0) {
-                        LATBbits.LATB6 = 0;
+                        LATBbits.LATB6 = 1;
                         break;  // Exit for loop, main while will catch mode change
                     }
                 }
             }
             
-            // Low phase
-            LATBbits.LATB6 = 0;
+            // High phase
+            LATBbits.LATB6 = 1;
             
             for (uint32_t i = 0; i < delay_10us; i++) {
                 __delay_us(10);

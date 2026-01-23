@@ -17,7 +17,7 @@ Frequency accuracy inherits from the PIC's 24 MHz crystal (typically ±50 ppm).
 |-----------------|------|--------------------------------|
 | Crystal         | RA4/5| 24 MHz external crystal        |
 | ADC Input       | RA0  | Potentiometer (0-5V)           |
-| Clock Output    | RB6  | NCO1 output (drives EL7232CNZ) |
+| Clock Output    | RB6  | NCO1 output, active low (drives EL7232CNZ) |
 | Debug LED       | RC5  | Status indicator               |
 | Halt Select     | RC6  | High-speed mode (SW2, active low) |
 | Step Button     | RC4  | Step pulse trigger (SW3)       |

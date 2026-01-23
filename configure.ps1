@@ -38,9 +38,9 @@ function Find-XC8 {
 
 function Find-DFP {
     $searchPaths = @(
-        "C:\Program Files\Microchip\MPLABX\v*\packs\Microchip\PIC16Fxxx_DFP\*",
-        "C:\Program Files (x86)\Microchip\MPLABX\v*\packs\Microchip\PIC16Fxxx_DFP\*",
-        "$env:USERPROFILE\.mchp_packs\Microchip\PIC16Fxxx_DFP\*"
+        "C:\Program Files\Microchip\MPLABX\v*\packs\Microchip\PIC16F1xxxx_DFP\*",
+        "C:\Program Files (x86)\Microchip\MPLABX\v*\packs\Microchip\PIC16F1xxxx_DFP\*",
+        "$env:USERPROFILE\.mchp_packs\Microchip\PIC16F1xxxx_DFP\*"
     )
 
     foreach ($pattern in $searchPaths) {
@@ -71,9 +71,9 @@ Write-Host -NoNewline "Checking for xc8 compiler... "
 $xc8Path = Find-XC8
 if ($xc8Path) { Write-Host "found: $xc8Path" } else { Write-Host "NOT FOUND"; $Errors++ }
 
-Write-Host -NoNewline "Checking for PIC16Fxxx DFP... "
+Write-Host -NoNewline "Checking for PIC16F1xxxx DFP... "
 $dfpPath = Find-DFP
-if ($dfpPath) { Write-Host "found: $dfpPath" } else { Write-Host "NOT FOUND (install via MPLAB X IDE: Tools > Packs > PIC16Fxxx_DFP)"; $Errors++ }
+if ($dfpPath) { Write-Host "found: $dfpPath" } else { Write-Host "NOT FOUND (install via MPLAB X IDE: Tools > Packs > PIC16F1xxxx_DFP)"; $Errors++ }
 
 Write-Host ""
 

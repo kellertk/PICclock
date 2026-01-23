@@ -34,11 +34,11 @@ find_ipe() {
 
 find_dfp() {
     local search_paths=(
-        /c/Program\ Files/Microchip/MPLABX/v*/packs/Microchip/PIC16Fxxx_DFP/*
-        /mnt/c/Program\ Files/Microchip/MPLABX/v*/packs/Microchip/PIC16Fxxx_DFP/*
-        /opt/microchip/mplabx/v*/packs/Microchip/PIC16Fxxx_DFP/*
-        /Applications/microchip/mplabx/v*/packs/Microchip/PIC16Fxxx_DFP/*
-        ~/.mchp_packs/Microchip/PIC16Fxxx_DFP/*
+        /c/Program\ Files/Microchip/MPLABX/v*/packs/Microchip/PIC16F1xxxx_DFP/*
+        /mnt/c/Program\ Files/Microchip/MPLABX/v*/packs/Microchip/PIC16F1xxxx_DFP/*
+        /opt/microchip/mplabx/v*/packs/Microchip/PIC16F1xxxx_DFP/*
+        /Applications/microchip/mplabx/v*/packs/Microchip/PIC16F1xxxx_DFP/*
+        ~/.mchp_packs/Microchip/PIC16F1xxxx_DFP/*
     )
 
     for pattern in "${search_paths[@]}"; do
@@ -88,12 +88,12 @@ else
     echo "NOT FOUND"; ERRORS=$((ERRORS + 1))
 fi
 
-echo -n "Checking for PIC16Fxxx DFP... "
+echo -n "Checking for PIC16F1xxxx DFP... "
 DFP_PATH=$(find_dfp)
 if [ -n "$DFP_PATH" ]; then
     echo "found: $DFP_PATH"
 else
-    echo "NOT FOUND (install via MPLAB X IDE: Tools > Packs > PIC16Fxxx_DFP)"; ERRORS=$((ERRORS + 1))
+    echo "NOT FOUND (install via MPLAB X IDE: Tools > Packs > PIC16F1xxxx_DFP)"; ERRORS=$((ERRORS + 1))
 fi
 
 echo ""

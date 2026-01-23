@@ -95,7 +95,7 @@
 
 | Signal | Description |
 |--------|-------------|
-| VAR_CLK | Variable clock from PIC (RB6 NCO1) |
+| VAR_CLK | Variable clock from PIC (RB6 NCO1), active low |
 | HS_CLK | High-speed external oscillator |
 | STEP_SEL | Step mode select (SW1, active low = step) |
 | HALT_SEL | High-speed mode select (SW2, active low = high-speed) |
