@@ -1,0 +1,5 @@
+/build/
+config.mk
+hardaware/kicad/fp-info-cache
+hardware/kicad/*.lck
+OLDCODE
