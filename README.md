@@ -2,7 +2,7 @@
 
 Variable-frequency clock generator using PIC16F18344 hardware NCO.
 
-See [FIRMWARE.md](src/FIRMWARE.md) and [HARDWARE.md](hardware/HARDWARE.md) for details.
+See [src/README.md](src/README.md) and [hardware/README.md](hardware/README.md) for details.
 
 ## Features
 
