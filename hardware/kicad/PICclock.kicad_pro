@@ -58,56 +58,7 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [
-        [
-          "silk_overlap|100229039|115340000|efe4bdf5-17bb-4001-90d1-79255f11989a|7089b768-9036-47f3-a154-e88054f5f8d6",
-          ""
-        ],
-        [
-          "silk_overlap|100229039|117320000|215b7c17-1072-47bd-a14d-dc5079ba1932|7089b768-9036-47f3-a154-e88054f5f8d6",
-          ""
-        ],
-        [
-          "silk_overlap|102332124|115349791|efe4bdf5-17bb-4001-90d1-79255f11989a|e69c777a-c4a9-4ef7-9ace-bb8fda02a353",
-          ""
-        ],
-        [
-          "silk_overlap|102332124|117310210|215b7c17-1072-47bd-a14d-dc5079ba1932|e69c777a-c4a9-4ef7-9ace-bb8fda02a353",
-          ""
-        ],
-        [
-          "silk_overlap|89690000|106350000|9c29c528-f930-429c-ab94-0c6914e6cced|81ad16a4-8ea6-4017-a9eb-2faa35ae75bf",
-          ""
-        ],
-        [
-          "silk_overlap|89690000|108150000|8b06e8a0-07e7-42b6-894d-21d01c75d8f8|81ad16a4-8ea6-4017-a9eb-2faa35ae75bf",
-          ""
-        ],
-        [
-          "silk_overlap|90209039|106260000|cca7e636-f308-45fd-b49e-d836a5e9bfb1|81ad16a4-8ea6-4017-a9eb-2faa35ae75bf",
-          ""
-        ],
-        [
-          "silk_overlap|90209039|108240000|e6d56c5d-75d2-4590-8e7c-e9ca3da072e6|81ad16a4-8ea6-4017-a9eb-2faa35ae75bf",
-          ""
-        ],
-        [
-          "silk_overlap|92312124|106269791|cca7e636-f308-45fd-b49e-d836a5e9bfb1|7bd45736-b341-49f8-91fc-af57afa37dae",
-          ""
-        ],
-        [
-          "silk_overlap|92312124|108230210|e6d56c5d-75d2-4590-8e7c-e9ca3da072e6|7bd45736-b341-49f8-91fc-af57afa37dae",
-          ""
-        ],
-        [
-          "silk_overlap|99710000|115430000|f375a3ae-a274-4333-9f56-f040d12db7ae|7089b768-9036-47f3-a154-e88054f5f8d6",
-          ""
-        ],
-        [
-          "silk_overlap|99710000|117230000|db187be0-c0d6-4456-afc6-7bf0f80c4254|7089b768-9036-47f3-a154-e88054f5f8d6",
-          ""
-        ]
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -610,7 +561,7 @@
       "svg": "",
       "vrml": ""
     },
-    "page_layout_descr_file": ""
+    "page_layout_descr_file": "kicad-embed://blank.kicad_wks"
   },
   "schematic": {
     "annotate_start_num": 0,
@@ -713,7 +664,7 @@
       "version": 1
     },
     "net_format_name": "",
-    "page_layout_descr_file": "",
+    "page_layout_descr_file": "kicad-embed://blank.kicad_wks",
     "plot_directory": "",
     "space_save_all_events": true,
     "spice_current_sheet_as_root": false,
