@@ -38,7 +38,11 @@ else
 endif
 
 flash: $(FW_HEX)
+ifeq ($(RUNTIME_OS),windows)
 	"$(IPE)" -TP$(PROGRAMMER) -P$(MCU) -W -M -F"$(FW_HEX)"
+else
+	$(IPE) -TP$(PROGRAMMER) -P$(MCU) -W -M -F"$(FW_HEX)"
+endif
 
 clean:
 ifeq ($(RUNTIME_OS),windows)

@@ -17,6 +17,7 @@
 #include <xc.h>
 #include <stdint.h>
 #include "freq_table.h"
+#include "clc_debounce.h"
 
 // Configuration bits for PIC16F18344
 #pragma config FEXTOSC = HS    // External oscillator: HS (24 MHz crystal)
@@ -50,7 +51,7 @@
 
 #define DEBUG_LED   LATCbits.LATC5   // Debug LED (active high)
 #define HALT_SEL    PORTCbits.RC6    // Halt select (SW2)
-#define STEP_BTN    PORTCbits.RC4    // Step button (SW3)
+#define STEP_BTN    CLCDATAbits.MLC1OUT  // Step button (SW3) - HW debounced via 3-CLC
 #define STEP_SEL    PORTCbits.RC3    // Step mode select (SW1)
 
 static void adc_init(void) {
@@ -135,33 +136,6 @@ static void nco_connect(void) {
     NCO1CON = 0x90;             // Enable NCO, FDC mode, inverted
 }
 
-/**
- * Output a single step pulse (for step mode)
- */
-static void output_step_pulse(void) {
-    LATBbits.LATB6 = 0;
-    __delay_ms(10);
-    LATBbits.LATB6 = 1;
-}
-
-/**
- * Simple button debounce
- */
-static uint8_t button_pressed(void) {
-    if (STEP_BTN == 0) {
-        __delay_ms(20);
-        if (STEP_BTN == 0) {
-            return 1;
-        }
-    }
-    return 0;
-}
-
-static void wait_button_release(void) {
-    while (STEP_BTN == 0);
-    __delay_ms(20);
-}
-
 void main(void) {
     // Configure I/O
     // PORTA: RA0=analog in, RA4/RA5=crystal
@@ -189,6 +163,7 @@ void main(void) {
     __delay_ms(100);
     DEBUG_LED = 1;
 
+    clc_debounce_init();
     adc_init();
     nco_init();
 
@@ -240,12 +215,24 @@ void main(void) {
                 halted = 1;
             }
             DEBUG_LED = 1;
-            
-            if (button_pressed()) {
-                output_step_pulse();
-                wait_button_release();
+
+            // Drive output directly from button state (active low)
+            if (STEP_BTN == 0) {
+                // Button pressed: drive clock low (inverted output)
+                LATBbits.LATB6 = 0;
+
+                // Enforce minimum 10ms pulse width
+                __delay_ms(10);
+
+                // Hold low while button remains pressed
+                while (STEP_BTN == 0) {
+                    uint8_t m = (HALT_SEL ? 0 : 2) | (STEP_SEL ? 0 : 1);
+                    if (!(m & 1)) break;
+                }
+
+                // Release: drive clock high
+                LATBbits.LATB6 = 1;
             }
-            __delay_ms(10);
             continue;
         }
         
